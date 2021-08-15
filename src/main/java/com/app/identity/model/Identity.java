@@ -3,16 +3,15 @@ package com.app.identity.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name = "ps_identity", schema = "public")
-public class Identity implements Serializable {
-    private static final long serialVersionUID = -2343243243242432341L;
+public class Identity {
 
     @Id
-    private String id;
+    @GeneratedValue
+    private Long id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -25,4 +24,53 @@ public class Identity implements Serializable {
 
     @Column(name = "email")
     private String email;
+
+    public Identity() {}
+
+    public Identity(String firstName, String lastName, String phone, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.email = email;
+    }
+
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+//
+//    public String getFirstName() {
+//        return firstName;
+//    }
+//
+//    public void setFirstName(String firstName) {
+//        this.firstName = firstName;
+//    }
+//
+//    public String getLastName() {
+//        return lastName;
+//    }
+//
+//    public void setLastName(String lastName) {
+//        this.lastName = lastName;
+//    }
+//
+//    public String getPhone() {
+//        return phone;
+//    }
+//
+//    public void setPhone(String phone) {
+//        this.phone = phone;
+//    }
+//
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 }

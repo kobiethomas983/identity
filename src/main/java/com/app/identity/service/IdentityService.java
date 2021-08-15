@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,8 +28,6 @@ public class IdentityService {
     }
 
     public Identity createIdentity(Identity newIdentity) {
-        String id = UUID.randomUUID().toString();
-        newIdentity.setId(id.substring(0, 6));
         return identityRepository.save(newIdentity);
     }
 
@@ -40,18 +37,11 @@ public class IdentityService {
                 .collect(Collectors.toList());
     }
 
-    public Identity getIdentityById(String id) {
-        Identity foundIdentity = null;
-        List<Identity> identities = identityRepository.findAll();
-        for (Identity identity : identities) {
-            if (identity.getId().equals(id)) {
-                return identity;
-            }
-        }
-        return null;
+    public Identity getIdentityById(Long id) {
+        return identityRepository.findById(id).orElse(null);
     }
 
-    public Identity updatedIdentity(String id, Identity updatedIdentity) {
+    public Identity updatedIdentity(Long id, Identity updatedIdentity) {
         Identity identity = getIdentityById(id);
         if (identity == null) {
             throw new DataNotFoundException("No such identity exist with id: " + id);

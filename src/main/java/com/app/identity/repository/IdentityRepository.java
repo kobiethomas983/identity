@@ -2,6 +2,7 @@ package com.app.identity.repository;
 
 import com.app.identity.model.Identity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

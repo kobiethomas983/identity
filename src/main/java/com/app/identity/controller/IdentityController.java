@@ -43,7 +43,7 @@ public class IdentityController {
             @ApiResponse(code = 404, message = "Not found!!!"),
             @ApiResponse(code = 422, message = "Incorrect parameter data")
     })
-    public Identity getIdentityById(@PathVariable("id") String id) {
+    public Identity getIdentityById(@PathVariable("id") long id) {
         return identityService.getIdentityById(id);
     }
 
@@ -55,7 +55,7 @@ public class IdentityController {
 
     @PutMapping("/identities/{id}")
     @ApiOperation(value = "Update Identity", nickname = "updateIdentity", tags = "Update Methods")
-    public Identity updatedIdentity(@PathVariable("id") String id,
+    public Identity updatedIdentity(@PathVariable("id") long id,
                                     @RequestBody Identity updatedIdentity) {
        return identityService.updatedIdentity(id, updatedIdentity);
     }
