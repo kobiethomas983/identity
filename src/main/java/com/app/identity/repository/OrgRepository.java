@@ -10,4 +10,5 @@ import java.util.List;
 public interface OrgRepository extends JpaRepository<Org, Long> {
     Org findByCompanyName(String companyName);
     List<Org> findAll();
+    Org findByOrgId(String orgId);
 }

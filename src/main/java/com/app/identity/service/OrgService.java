@@ -32,30 +32,28 @@ public class OrgService {
                 .collect(Collectors.toList());
     }
 
-    public Org findById(Long id) {
-        return orgRepository.findById(id)
-                .orElse(null);
+    public Org getByOrgId(String orgId) {
+        return orgRepository.findByOrgId(orgId);
     }
 
-    public Org update(Long id, Org updateOrg) {
-        Optional<Org> foundOrg = orgRepository.findById(id);
-        if (!foundOrg.isPresent()) {
-            throw new DataNotFoundException("No such org exist with id: " + id);
+    public Org update(String orgId, Org updateOrg) {
+        Org foundOrg = getByOrgId(orgId);
+        if (foundOrg == null) {
+            throw new DataNotFoundException("No such org exist with id: " + orgId);
         }
-        Org org = foundOrg.get();
         if (updateOrg.getCompanyName() != null) {
-            org.setCompanyName(updateOrg.getCompanyName());
+            foundOrg.setCompanyName(updateOrg.getCompanyName());
         }
         if (updateOrg.getAddress() != null) {
-            org.setAddress(updateOrg.getAddress());
+            foundOrg.setAddress(updateOrg.getAddress());
         }
         if (updateOrg.getDescription() != null) {
-            org.setDescription(updateOrg.getDescription());
+            foundOrg.setDescription(updateOrg.getDescription());
         }
         if (updateOrg.getWebsite() != null) {
-            org.setWebsite(updateOrg.getWebsite());
+            foundOrg.setWebsite(updateOrg.getWebsite());
         }
-        return orgRepository.save(org);
+        return orgRepository.save(foundOrg);
     }
 
     public void deleteOrgById(Long id) {

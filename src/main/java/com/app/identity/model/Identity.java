@@ -3,6 +3,7 @@ package com.app.identity.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @Entity
@@ -29,7 +30,10 @@ public class Identity {
     private String email;
 
     @Column(name = "org_id")
+    @NotBlank(message = "orgId cannot be blank")
     private String orgId;
+
+    private String role;
 
     public Identity() {}
 

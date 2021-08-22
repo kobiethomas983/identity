@@ -1,7 +1,9 @@
 package com.app.identity.controller;
 
 import com.app.identity.exception.DataNotFoundException;
+import com.app.identity.model.Identity;
 import com.app.identity.model.Org;
+import com.app.identity.service.IdentityService;
 import com.app.identity.service.OrgService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +16,13 @@ import java.util.List;
 public class OrgController {
 
     private final OrgService orgService;
+    private final IdentityService identityService;
 
     @Autowired
-    public OrgController(OrgService orgService) {
+    public OrgController(OrgService orgService,
+                         IdentityService identityService) {
         this.orgService = orgService;
+        this.identityService = identityService;
     }
 
     @GetMapping("/orgs")
@@ -26,17 +31,17 @@ public class OrgController {
     }
 
     @GetMapping("/orgs/{id}")
-    public Org getOrgById(@PathVariable("id") long id) {
-        Org org = orgService.findById(id);
+    public Org getOrgById(@PathVariable("id") String orgId) {
+        Org org = orgService.getByOrgId(orgId);
         if (org == null) {
-            throw new DataNotFoundException("Org doesn't exist with id: " + id);
+            throw new DataNotFoundException("Org doesn't exist with id: " + orgId);
         }
         return org;
     }
 
     @PutMapping("/orgs/{id}")
-    public Org updateOrg(@PathVariable("id") long id, @RequestBody Org org) {
-        return orgService.update(id, org);
+    public Org updateOrg(@PathVariable("id") String orgId, @RequestBody Org org) {
+        return orgService.update(orgId, org);
     }
 
     @PostMapping("/orgs")
@@ -44,5 +49,9 @@ public class OrgController {
         return orgService.save(org);
     }
 
+    @GetMapping("/orgs/{orgId}/identities")
+    public List<Identity> getMembers(@PathVariable("orgId") String orgId) {
+        return identityService.getIdentitiesByOrgId(orgId);
+    }
 
 }

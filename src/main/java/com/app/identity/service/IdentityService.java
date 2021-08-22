@@ -2,7 +2,9 @@ package com.app.identity.service;
 
 import com.app.identity.exception.DataNotFoundException;
 import com.app.identity.model.Identity;
+import com.app.identity.model.Org;
 import com.app.identity.repository.IdentityRepository;
+import com.app.identity.repository.OrgRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,12 @@ import java.util.stream.Collectors;
 public class IdentityService {
 
     private final IdentityRepository identityRepository;
+    private final OrgService orgService;
 
     @Autowired
-    public IdentityService(IdentityRepository identityRepository) {
+    public IdentityService(IdentityRepository identityRepository, OrgService orgService) {
         this.identityRepository = identityRepository;
+        this.orgService = orgService;
     }
 
     public List<Identity> getAll() {
@@ -31,6 +35,10 @@ public class IdentityService {
     public Identity createIdentity(Identity newIdentity) {
         String identityId = UUID.randomUUID().toString();
         newIdentity.setIdentityId(identityId.substring(0,6));
+        String orgId = newIdentity.getOrgId();
+        if (orgService.getByOrgId(orgId) == null) {
+            throw new DataNotFoundException("No org exist with id: " + orgId);
+        }
         return identityRepository.save(newIdentity);
     }
 
@@ -40,14 +48,14 @@ public class IdentityService {
                 .collect(Collectors.toList());
     }
 
-    public Identity getIdentityById(Long id) {
-        return identityRepository.findById(id).orElse(null);
+    public Identity getIdentityById(String identityId) {
+        return identityRepository.findByIdentityId(identityId);
     }
 
-    public Identity updatedIdentity(Long id, Identity updatedIdentity) {
-        Identity identity = getIdentityById(id);
+    public Identity updatedIdentity(String identityId, Identity updatedIdentity) {
+        Identity identity = getIdentityById(identityId);
         if (identity == null) {
-            throw new DataNotFoundException("No such identity exist with id: " + id);
+            throw new DataNotFoundException("No such identity exist with id: " + identityId);
         }
         if (updatedIdentity.getFirstName() != null) {
             identity.setFirstName(updatedIdentity.getFirstName());
@@ -63,5 +71,9 @@ public class IdentityService {
 
     public void deleteIdentities() {
         identityRepository.deleteAll();
+    }
+
+    public List<Identity> getIdentitiesByOrgId(String orgId) {
+        return identityRepository.findByOrgId(orgId);
     }
 }

@@ -15,11 +15,12 @@ CREATE TABLE IF NOT EXISTS ps_org (
 CREATE TABLE IF NOT EXISTS ps_identity (
     id bigint,
     identity_id TEXT UNIQUE NOT NULL,
+    role TEXT,
     first_name TEXT,
     last_name TEXT,
     phone TEXT,
     email TEXT,
-    org_id TEXT,
+    org_id TEXT NOT NULL,
     PRIMARY KEY(id),
     CONSTRAINT fk_org
         FOREIGN KEY(org_id)
