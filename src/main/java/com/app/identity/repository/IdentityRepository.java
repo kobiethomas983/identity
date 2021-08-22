@@ -11,4 +11,5 @@ import java.util.List;
 public interface IdentityRepository extends JpaRepository<Identity, Long> {
     Identity findByFirstName (String FirstName);
     List<Identity> findAll();
+    Identity findByIdentityId(String identityId);
 }

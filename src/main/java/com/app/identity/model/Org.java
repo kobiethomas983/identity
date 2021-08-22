@@ -2,10 +2,7 @@ package com.app.identity.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -16,7 +13,12 @@ public class Org {
     @GeneratedValue
     private Long id;
 
+    @Column(name = "org_id")
+    private String orgId;
+
+    @Column(name = "company_name")
     private String companyName;
+
     private String description;
     private String website;
     private String address;
