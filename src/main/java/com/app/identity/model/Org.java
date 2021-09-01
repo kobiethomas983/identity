@@ -9,6 +9,8 @@ import javax.persistence.*;
 @Table(name = "ps_org", schema = "public")
 public class Org {
 
+    public Org() {}
+
     @Id
     @GeneratedValue
     private Long id;

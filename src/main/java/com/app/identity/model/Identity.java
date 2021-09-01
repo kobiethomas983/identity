@@ -35,7 +35,7 @@ public class Identity {
 
     private String role;
 
-    public Identity() {}
+    public Identity() {};
 
     public Identity(String firstName, String lastName,
                     String phone, String email, String orgId) {
