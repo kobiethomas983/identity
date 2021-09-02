@@ -33,7 +33,7 @@ public class IdentityService {
     }
 
     public Identity createIdentity(Identity newIdentity) {
-        String identityId = UUID.randomUUID().toString();
+        String identityId = "Id" + UUID.randomUUID();
         newIdentity.setIdentityId(identityId.substring(0,6));
         String orgId = newIdentity.getOrgId();
         if (orgService.getByOrgId(orgId) == null) {
@@ -75,5 +75,9 @@ public class IdentityService {
 
     public List<Identity> getIdentitiesByOrgId(String orgId) {
         return identityRepository.findByOrgId(orgId);
+    }
+
+    public Identity getIdentityByEmail(String email) {
+        return identityRepository.findByEmail(email);
     }
 }

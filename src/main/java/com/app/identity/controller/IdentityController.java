@@ -17,7 +17,6 @@ import java.util.List;
 @Api(value = "Identity Controller", description = "Identity Service API : Identity 2.0 service", tags = "Identity")
 @Validated
 public class IdentityController {
-
     private final IdentityService identityService;
 
     @Autowired
@@ -61,11 +60,10 @@ public class IdentityController {
                                     @RequestBody Identity updatedIdentity) {
        return identityService.updatedIdentity(identity, updatedIdentity);
     }
-
-    @GetMapping("identities/firstName/{firstName}")
-    @ApiOperation(value = "Get a Identity by firstName", nickname = "findIdentityByFirstName", tags = "Get Methods")
-    public Identity getIdentityByFirstName(@PathVariable("firstName") String firstName) {
-        return identityService.getByFirstName(firstName);
+    @GetMapping("identities/email/{email}")
+    @ApiOperation(value = "Get a Identity by email", nickname = "findIdentityByEmail", tags = "Get Methods")
+    public Identity getIdentityByFirstName(@PathVariable("email") String email) {
+        return identityService.getByFirstName(email);
     }
 
     @DeleteMapping("/identities")

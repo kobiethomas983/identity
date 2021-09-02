@@ -13,4 +13,5 @@ public interface IdentityRepository extends JpaRepository<Identity, Long> {
     List<Identity> findAll();
     Identity findByIdentityId(String identityId);
     List<Identity> findByOrgId(String orgId);
+    Identity findByEmail(String email);
 }

@@ -22,7 +22,7 @@ public class OrgService {
     }
 
     public Org save(Org org) {
-        String orgId = UUID.randomUUID().toString();
+        String orgId = "Og" + UUID.randomUUID();
         org.setOrgId(orgId.substring(0,6));
         return orgRepository.save(org);
     }
