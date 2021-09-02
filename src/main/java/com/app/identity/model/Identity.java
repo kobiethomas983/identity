@@ -29,20 +29,20 @@ public class Identity {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "org_id")
-    @NotBlank(message = "orgId cannot be blank")
-    private String orgId;
+    @Column(name = "company_id")
+    @NotBlank(message = "companyId cannot be blank")
+    private String companyId;
 
     private String role;
 
     public Identity() {};
 
     public Identity(String firstName, String lastName,
-                    String phone, String email, String orgId) {
+                    String phone, String email, String companyId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.email = email;
-        this.orgId = orgId;
+        this.companyId = companyId;
     }
 }
