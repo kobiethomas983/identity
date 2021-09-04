@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class IdentityService {
-
     private final IdentityRepository identityRepository;
     private final OrgService orgService;
 
