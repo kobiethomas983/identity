@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS ps_identity (
 --UX Designer
 --Marketer
 
-CREATE SEQUENCE hibernate_sequence START 1;
+CREATE SEQUENCE hibernate_sequence START 20;
 
 INSERT INTO ps_company(id,company_id, company_name, description, website, address)
 VALUES(1,'Co1234', 'Clyde', 'Clyde empowers businesses—from startups to enterprises—to.', 'https://www.joinclyde.com/','579 Broadway #2c, New York, NY 10012');
