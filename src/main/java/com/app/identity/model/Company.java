@@ -6,17 +6,17 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "ps_org", schema = "public")
-public class Org {
+@Table(name = "ps_company", schema = "public")
+public class Company {
 
-    public Org() {}
+    public Company() {}
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column(name = "org_id")
-    private String orgId;
+    @Column(name = "company_id")
+    private String companyId;
 
     @Column(name = "company_name")
     private String companyName;

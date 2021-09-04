@@ -2,9 +2,7 @@ package com.app.identity.service;
 
 import com.app.identity.exception.DataNotFoundException;
 import com.app.identity.model.Identity;
-import com.app.identity.model.Org;
 import com.app.identity.repository.IdentityRepository;
-import com.app.identity.repository.OrgRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +13,12 @@ import java.util.stream.Collectors;
 @Service
 public class IdentityService {
     private final IdentityRepository identityRepository;
-    private final OrgService orgService;
+    private final CompanyService companyService;
 
     @Autowired
-    public IdentityService(IdentityRepository identityRepository, OrgService orgService) {
+    public IdentityService(IdentityRepository identityRepository, CompanyService companyService) {
         this.identityRepository = identityRepository;
-        this.orgService = orgService;
+        this.companyService = companyService;
     }
 
     public List<Identity> getAll() {
@@ -34,9 +32,9 @@ public class IdentityService {
     public Identity createIdentity(Identity newIdentity) {
         String identityId = "Id" + UUID.randomUUID();
         newIdentity.setIdentityId(identityId.substring(0,6));
-        String orgId = newIdentity.getOrgId();
-        if (orgService.getByOrgId(orgId) == null) {
-            throw new DataNotFoundException("No org exist with id: " + orgId);
+        String companyId = newIdentity.getCompanyId();
+        if (companyService.getByCompanyId(companyId) == null) {
+            throw new DataNotFoundException("No company exist with id: " + companyId);
         }
         return identityRepository.save(newIdentity);
     }
@@ -72,8 +70,8 @@ public class IdentityService {
         identityRepository.deleteAll();
     }
 
-    public List<Identity> getIdentitiesByOrgId(String orgId) {
-        return identityRepository.findByOrgId(orgId);
+    public List<Identity> getIdentitiesByCompanyId(String companyId) {
+        return identityRepository.findByCompanyId(companyId);
     }
 
     public Identity getIdentityByEmail(String email) {
