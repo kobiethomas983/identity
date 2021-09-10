@@ -1,6 +1,8 @@
 package com.app.identity.controller;
 
 import com.app.identity.model.Identity;
+import com.app.identity.model.IdentityRole;
+import com.app.identity.service.IdentityRoleService;
 import com.app.identity.service.IdentityService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,10 +20,13 @@ import java.util.List;
 @Validated
 public class IdentityController {
     private final IdentityService identityService;
+    private final IdentityRoleService identityRoleService;
 
     @Autowired
-    public IdentityController(IdentityService identityService) {
+    public IdentityController(IdentityService identityService,
+                              IdentityRoleService identityRoleService) {
         this.identityService = identityService;
+        this.identityRoleService = identityRoleService;
     }
 
     @GetMapping("/identities")
@@ -72,4 +77,9 @@ public class IdentityController {
         identityService.deleteIdentities();
     }
 
+    @PostMapping("/identities/{identityId}/roles/{roleId}")
+    public IdentityRole addRoleToIdentity(@PathVariable("identityId") String identityId,
+                                          @PathVariable("roleId") String roleId) {
+        return identityRoleService.addRoleToIdentity(identityId, roleId);
+    }
 }
