@@ -77,9 +77,20 @@ public class IdentityController {
         identityService.deleteIdentities();
     }
 
-    @PostMapping("/identities/{identityId}/roles/{roleId}")
-    public IdentityRole addRoleToIdentity(@PathVariable("identityId") String identityId,
-                                          @PathVariable("roleId") String roleId) {
-        return identityRoleService.addRoleToIdentity(identityId, roleId);
+    @PostMapping("/identities/addRole")
+    public IdentityRole addRoleToIdentity(@RequestBody IdentityRole identityRole) {
+        return identityRoleService.addIdentityRole(identityRole);
+    }
+
+    @GetMapping("/identities/{identityId}/roles/{roleId}")
+    public IdentityRole getIdentityRole(@PathVariable("identityId") String identityId,
+                                        @PathVariable("roleId") String roleId) {
+        return identityRoleService.findIdentityRole(identityId,roleId);
+    }
+
+    @DeleteMapping("/identities/{identityId}/roles/{roleId}")
+    public void removeRoleFromIdentity(@PathVariable("identityId") String identityId,
+                                       @PathVariable("roleId") String roleId) {
+        identityRoleService.deleteIdentityRole(identityId, roleId);
     }
 }

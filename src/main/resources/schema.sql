@@ -104,3 +104,6 @@ VALUES(9, 'IdMM02', 'Technical Writer', 'Donovan', 'Jansky', 'donovan@gmail.com'
 
 INSERT INTO ps_role(id, role_id, description, created_at)
 VALUES(1, 'IdentityCreator', 'has permissions to create update read identities', NOW());
+
+INSERT INTO ps_identity_role(identity_id, role_id, created_at)
+VALUES('Id1234', 'IdentityCreator', NOW());
