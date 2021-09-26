@@ -27,6 +27,31 @@ CREATE TABLE IF NOT EXISTS ps_identity (
             REFERENCES ps_company(company_id)
 );
 
+CREATE TABLE IF NOT EXISTS ps_role (
+    id bigint PRIMARY KEY,
+    role_id TEXT UNIQUE NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS ps_permission (
+    id bigint PRIMARY KEY,
+    permission_id TEXT UNIQUE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS ps_identity_role (
+    identity_id TEXT REFERENCES ps_identity (identity_id),
+    role_id TEXT REFERENCES ps_role (role_id),
+    created_at TIMESTAMP,
+    PRIMARY KEY(identity_id, role_id)
+);
+
+CREATE TABLE IF NOT EXISTS ps_role_permission(
+    role_id TEXT REFERENCES ps_role(role_id),
+    permission_id TEXT REFERENCES ps_permission(permission_id),
+    PRIMARY KEY(role_id, permission_id)
+);
+
 -- Data Engineer
 --Software Engineer
 --Sales Manager
@@ -83,3 +108,8 @@ VALUES(8, 'IdUU02', 'Software Engineer', 'Verlie', 'Grego', 'verlie@gmail.com', 
 INSERT INTO ps_identity(id, identity_id, role, first_name, last_name, email, company_id)
 VALUES(9, 'IdMM02', 'Technical Writer', 'Donovan', 'Jansky', 'donovan@gmail.com', 'Co1578');
 
+INSERT INTO ps_role(id, role_id, description, created_at)
+VALUES(1, 'IdentityCreator', 'has permissions to create update read identities', NOW());
+
+INSERT INTO ps_identity_role(identity_id, role_id, created_at)
+VALUES('Id1234', 'IdentityCreator', NOW());
