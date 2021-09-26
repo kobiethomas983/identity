@@ -46,6 +46,12 @@ CREATE TABLE IF NOT EXISTS ps_identity_role (
     PRIMARY KEY(identity_id, role_id)
 );
 
+CREATE TABLE IF NOT EXISTS ps_role_permission(
+    role_id TEXT REFERENCES ps_role(role_id),
+    permission_id TEXT REFERENCES ps_permission(permission_id),
+    PRIMARY KEY(role_id, permission_id)
+);
+
 -- Data Engineer
 --Software Engineer
 --Sales Manager
