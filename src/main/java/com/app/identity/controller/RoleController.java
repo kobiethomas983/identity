@@ -1,6 +1,5 @@
 package com.app.identity.controller;
 
-import com.app.identity.model.Identity;
 import com.app.identity.model.Role;
 import com.app.identity.service.RoleService;
 import io.swagger.annotations.Api;
